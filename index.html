@@ -1,0 +1,2166 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<meta charset="UTF-8">
+	<meta name="description" content="Free Web tutorials">
+	<meta name="keywords" content="HTML,CSS,XML,JavaScript">
+	<meta name="author" content="Hege Refsnes">
+	
+	<link rel="stylesheet" type="text/css" href="style/style-16.css">
+	
+	<!--JQuery Library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	
+	  
+	<!-- SLICK SLIDER -->
+	
+	 <link rel="stylesheet" type="text/css" href="js/slick/slick.css">
+	 <link rel="stylesheet" type="text/css" href="js/slick/slick-theme.css">
+	 <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> <!-- only works with this jquery version -->
+	 <script src="js/slick/slick.js" type="text/javascript" charset="utf-8"></script>
+	
+	 
+	 
+	<link rel="icon" type="image/png" href="image/logo.png" >
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Baloo+Tamma|Open+Sans" rel="stylesheet">
+	
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	
+	
+	 <!-- Facebook Messenger -->
+	 <script src="https://connect.facebook.net/en_US/sdk.js" type="text/javascript" charset="utf-8"></script>
+	 
+<style>
+/* Font Awesome Free */
+
+@font-face {
+    font-family: "FontAwesome";
+    src: url(font/fontawesome-free-5.5.0/fa-solid-900.woff);
+}
+</style>
+	
+	
+	
+</head>
+
+<script> 
+
+$(function(){
+	//Animation: Activates when scrolled at trigger point. 
+	
+	 var pcbm_slide_sa = ".date-section";
+	
+	 // Document Scroll
+	 $(document).on('scroll', function(){
+	if($(document).outerWidth()>=960){
+		var trigger_pt = 420; 
+		var y_doc = $(this).scrollTop();
+		var y2_doc = $(this).scrollTop()+trigger_pt;
+		
+	$(pcbm_slide_sa).each(function(){
+		
+		 // get position of each class items.
+		var y_pos = $(this).position().top;
+		var h_item = $(this).outerHeight();
+		
+		if(y_pos<(y2_doc)&&y_pos>(y_doc-h_item)){
+			$(this).addClass("active-date");
+		} // end if y_pos
+		
+	}) // end each .date-section
+	}// end screen size 960 limit
+	}) // end doc scroll
+	
+})
+
+</script>
+
+
+
+<script type="text/javascript">
+
+/* SLICK SIDERS */
+
+    $(document).on('ready', function() {
+	// 1. Services Listings
+      $(".mobile-responsive-slider").slick({
+        dots: true,
+        centerMode: false,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+		
+		responsive:[
+		{
+			breakpoint:960,
+			settings:{
+			    centerMode: true,
+				centerPadding: '15%',
+		        slidesToShow: 1,
+		        slidesToScroll: 1,
+			}
+		},
+		
+		{
+			breakpoint:480,
+			settings:{
+			    centerMode: true,
+				centerPadding: '16px',
+		        slidesToShow: 1,
+		        slidesToScroll: 1,
+			}
+		},
+		
+		]
+      });
+
+  });
+  
+  
+    $(document).on('ready', function() {
+	// 2. Projects Listings
+      $(".mobile-responsive-slider-project").slick({
+		centerMode: true,
+		centerPadding: '0',
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		speed: 3000,
+		autoplay: true,
+		autoplaySpeed:4400,
+		cssEase: 'ease',
+		infinite:true,
+		responsive:[
+		{
+			breakpoint:960,
+			settings:{
+			    centerMode: true,
+				centerPadding: '0',
+				speed: 1000,
+				autoplaySpeed:3000,
+		        slidesToShow: 1,
+		        slidesToScroll: 1,
+				dots:true,
+			}
+		},
+		
+		{
+			breakpoint:480,
+			settings:{
+			    centerMode: true,
+				speed: 1000,
+				autoplaySpeed:3000,
+				centerPadding: '0',
+		        slidesToShow: 1,
+		        slidesToScroll: 1,
+				dots:true,
+			}
+		},
+		
+		]
+		  
+	});
+
+  });
+  
+  </script>
+	
+	
+<script>
+  
+
+$(function(){
+		
+	/*
+		SANDPIPER BIRDWATCH : Y- Responsive Desktop/Mobile Api
+		
+		a. Usage: Sandpiper is used to create responsive div heights. 
+		
+		b. Class Naming Convention:
+		
+			sandpiper_row = added to row divs to request for responsiveness including header row. Note that for smaller screen sizes this should have a suffix of "-sm". 
+			
+			unsandpiper_row = removes reponsiveness of div height. Used for contents that overflows the div height.
+			
+			sandpiper_row-sm = used for divs that retains responsive height even in mobile or small screen browsers.
+			
+		c. Requirements:
+			- Head viewport should be set.
+			- Use % scaling on width.
+		
+	*/
+	
+	
+	
+	
+	function sandpiper_birdwatch(){
+
+	var row_Y_classes = {
+		wholeY: {
+			class: ".dynamic-y", 
+			altClass: "sandpiper_row", 
+			value: 1 },
+			
+		halfY: {
+			class: ".dynamic-y-half", 
+			altClass: "sandpiper_row_half", 
+			value: 0.5 }
+		
+	}
+
+	// Prevent from displaying contents
+
+	var not_y_class ="body";
+	$(not_y_class).outerHeight(0);
+
+	var window_height = 0; // Reset height of window.
+	var actual_screen_y = screen.height;
+	var padding_y = 200;
+	var window_height = $(window).height();
+
+	
+	for(i in row_Y_classes){
+
+		var row_y_class = row_Y_classes[i].class;
+		var altClass = row_Y_classes[i].altClass;
+		var valueClass = row_Y_classes[i].value;
+
+
+	$(row_y_class).addClass(altClass);
+
+	if($(window).width()>1300){
+		
+		// Reset height of rows.
+		$(row_y_class).outerHeight(0); 
+		$(row_y_class).css("overflow", "hidden");
+		$(row_y_class).css("margin", 0);
+
+		var window_height = $(window).height();
+
+		$(row_y_class).each(function(){
+
+
+		// Allow Zoom to maintain ratio of screen elements.
+		if($(window).width()>1366){$(this).css("max-height",actual_screen_y*valueClass);}
+
+			// 1. Check if row has responsive layout by class name sandpiper_row.
+			if($(this).hasClass(altClass)){
+				var max_y_elem = parseFloat($(this).css("max-height"));
+				
+				if(max_y_elem<window_height&&max_y_elem!='none'){
+					// Adjust height of each row
+					$(this).outerHeight(max_y_elem);
+					$(this).find('.wp-block-column').outerHeight("");
+				}
+				
+				else{
+					// Adjust height of each row
+					$(this).outerHeight(window_height);
+					$(this).find('.wp-block-column').outerHeight("");
+				} // else
+					
+				
+			}
+			
+		}) // endeach .row
+		
+	}// endif wide screen
+		
+		
+		// 3. Tablet height responsiveness
+		if($(window).width()<1366){
+			
+		
+		$(row_y_class).outerHeight(0)
+		$(row_y_class).css("overflow", "hidden");
+		
+		var window_height_sm = ($(window).height() + padding_y)*valueClass;
+		
+		$(row_y_class).each(function(){
+		
+			// 1. Check if row has responsive layout by class name sandpiper_row.
+			if($(this).hasClass(altClass)){
+				var max_y_elem = parseFloat($(this).css("max-height"));
+				
+				if(max_y_elem<window_height&&max_y_elem!='none'){
+					// Adjust height of each row
+					$(this).outerHeight(max_y_elem);
+					$(this).find('.wp-block-column').outerHeight("");
+				}
+				
+				else{
+					// Adjust height of each row
+
+					$(this).outerHeight(window_height_sm);
+					$(this).find('.wp-block-column').outerHeight("");
+
+				} // else
+					
+				$(row_y_class).css("overflow", "");
+			}
+		});
+		
+		} // endif tablet
+
+
+
+		// 4. Mobile height responsiveness
+		if($(window).width()<769){
+			
+		
+		$(row_y_class).outerHeight(0);
+		$(row_y_class).css("overflow", "");
+
+
+		
+		var window_height_sm = ($(window).height() + padding_y)*valueClass;
+		
+		$(row_y_class).each(function(){
+
+
+			var children_count = ($(this).children().length>0) ? $(this).children().length : 1 ;
+		
+			// 1. Check if row has responsive layout by class name sandpiper_row.
+			if($(this).hasClass(altClass)){
+				var max_y_elem = parseFloat($(this).css("max-height"));
+				
+				if(max_y_elem<window_height&&max_y_elem!='none'){
+					// Adjust height of each row
+					$(this).outerHeight(max_y_elem);
+					$(this).find('.wp-block-column').outerHeight(window_height_sm);
+
+
+				}
+				
+				else{
+					// Adjust height of each row
+
+					$(this).outerHeight(window_height_sm);
+			
+					$(this).find('.wp-block-column').outerHeight(window_height_sm);
+				} // else
+					
+				$(row_y_class).css("overflow", "");
+			}
+		});
+		
+		} // endif Mobile
+
+
+
+
+		console.log(row_y_class);
+
+	} // end for
+
+		// Prevents the height of none dynamic to affect auto height of section.
+			$(not_y_class).outerHeight(''); // resets
+
+
+	}// end height_responsive function
+	
+	
+
+	// I. Onload of Page  
+	
+	sandpiper_birdwatch();
+	
+
+	//II. On Resize  
+
+	$(window).resize(function(){
+	    
+
+        var scroll_pos_y = $(window).scrollTop();
+		
+			sandpiper_birdwatch();
+		
+		
+		// Retain Last Scroll Position after adjustment.
+		
+		$(window).scrollTop(scroll_pos_y);
+		
+	}) // end resize
+	
+	})// end onload
+
+
+</script>
+
+
+
+
+
+
+<script>
+	
+	
+// III. STICKY BACKGROUND SCROLL: Used for holding the exact postion of body whenever sidebar is called. 
+$(document).ready(function(){
+	
+	// Structural Requirement: Enlosed sidebar with sticky-nav class div. And add sticky-layout class name on div you want to hold position. Add sticky-overflow class name to have a grey cover to hide contents. 
+	  
+	  var recall_top;
+	  var window_x = $(window).width();
+	$('#sticky-btn').on("click", function(){
+		
+		// Show Sticky Nav:
+		$(".sticky-nav").toggleClass("sticky-overlay");
+		$(".sticky-overlay").animate({left:'0px'},400);  // Show animation on
+		
+		// 1. Relative Position Reset
+		if($(".sticky-layout").hasClass("sticky-body")){
+			recall_top = -1*($(".sticky-body").offset().top);
+			$(".sticky-layout").data("recall_top",recall_top); // save position to scroll
+			$(".sticky-layout").css("top",0); // revert to initial top pos.
+			$(".sticky-layout").css("left",0);
+			
+			$(".sticky-layout").toggleClass("sticky-body"); // toggle class
+
+			
+		} // end if
+			
+		
+		else{
+			
+		
+			// 2. Prompt Fixed Position
+			 var scrolly_pos=$(window).scrollTop();
+			 $(".sticky-layout").data("greet",scrolly_pos);
+						
+			$(".sticky-layout").toggleClass("sticky-body");
+			
+			$(".sticky-layout").css("top",-1*scrolly_pos);
+			$(".sticky-layout").css("left",0);
+			
+		} // end else
+			
+			
+		//3. Scroll to data position. 
+		$(document).scrollTop($(".sticky-layout").data("recall_top"));
+		
+		
+		if($(".sticky-nav").hasClass("sticky-overlay")){
+			$(document).scrollTop(0);
+			
+		}
+		
+		
+			
+	})// end click
+	
+	// EXIT : when overflow is clicked.
+		$('.sticky-overflow').on("click", function(){
+		
+		// Show Sticky Nav:
+		
+		$(".sticky-nav").css("left",400);
+		$(".sticky-nav").css("height",400);
+		$(".sticky-nav").removeClass("sticky-overlay");
+		
+		
+		// 1. Relative Position Reset
+		if($(".sticky-layout").hasClass("sticky-body")){
+			
+			recall_top = -1*($(".sticky-body").offset().top);
+			$(".sticky-layout").data("recall_top",recall_top); // save position to scroll
+			$(".sticky-layout").css("top",0); // revert to initial top pos.
+			$(".sticky-layout").css("left",0);
+			$(".sticky-layout").toggleClass("sticky-body"); // toggle class
+			
+		} // end if
+			
+		
+		else{
+			// 2. Prompt Fixed Position
+			 var scrolly_pos=$(window).scrollTop();
+			 $(".sticky-layout").data("greet",scrolly_pos);
+			
+			$(".sticky-layout").toggleClass("sticky-body");
+			$(".sticky-layout").css("top",-1*scrolly_pos);
+			$(".sticky-layout").css("left",0);
+			
+		} // end else
+			
+			
+		//3. Scroll to data position. 
+		$(document).scrollTop($(".sticky-layout").data("recall_top"));
+		
+		if($(".sticky-nav").hasClass("sticky-overlay")){
+		$(document).scrollTop(0);
+		}
+		
+		})// end click
+		
+		
+		}); // end sticky scroll
+		
+		
+		// Toggle Navigation
+		$(function(){
+			$(".open-menu").click(function(){
+					$(this).css("display","none");
+					$(".close-menu").css("display","block");
+			});
+			
+			$(".close-menu").click(function(){
+					$(this).css("display","none");
+					$(".open-menu").css("display","block");
+			});
+		});
+		
+		
+		// Allow smooth Scrolling Mobile Nav
+		$(function(){
+			
+			$(".nav-mobile nav a").click(function(){
+					$(".close-menu").css("display","none");
+					$(".open-menu").css("display","block");
+			
+			// Show Sticky Nav:
+			
+			// REMOVE FIXED POSITION OF BACKGROUND
+			$(".sticky-nav").css("left",400);
+			$(".sticky-nav").removeClass("sticky-overlay");
+			
+			
+			// 1. Relative Position Reset
+			if($(".sticky-layout").hasClass("sticky-body")){
+				
+				recall_top = -1*($(".sticky-body").offset().top);
+				$(".sticky-layout").data("recall_top",recall_top); // save position to scroll
+				$(".sticky-layout").css("top",0); // revert to initial top pos.
+				$(".sticky-layout").css("left",0);
+				$(".sticky-layout").toggleClass("sticky-body"); // toggle class
+				
+			} // end if
+				
+			
+			else{
+				// 2. Prompt Fixed Position
+				 var scrolly_pos=$(window).scrollTop();
+				 $(".sticky-layout").data("greet",scrolly_pos);
+				
+				$(".sticky-layout").toggleClass("sticky-body");
+				$(".sticky-layout").css("top",-1*scrolly_pos);
+				$(".sticky-layout").css("left",0);
+				
+			} // end else
+				
+				
+			//3. Scroll to data position. 
+			$(document).scrollTop($(".sticky-layout").data("recall_top"));
+			
+			if($(".sticky-nav").hasClass("sticky-overlay")){
+			$(document).scrollTop(0);
+			}
+					
+					
+			});
+		});
+		
+		
+</script> 
+
+<script>
+
+/*SMOOTH SCROLL SLIDER: */
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+		var hash = this.hash;
+		var transition_time = 800;
+		var trans_factor = Number(hash.substr(9));
+		var variable_time = transition_time*trans_factor;
+	
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, variable_time, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+</script>
+
+
+<script>
+
+$(function(){
+	
+/** AUTOMATIC ZOOM ADJUSTMENT: Adjust body size upon browser zoom (+ -) **/
+
+//1. Check Mobile Browser
+		
+		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){ 
+			// do nothing 
+		}
+		
+		
+//1. Check Computer Browser
+else{
+	var actual_screen_x = screen.width;
+	var body_width = $(window).width();
+	var browser_width = $(window).outerWidth();
+	var screen_browser_ratio =  (body_width+56)/actual_screen_x;
+	var screen_browser_ratio_zim =  actual_screen_x/(body_width+56);
+	
+	if(actual_screen_x<body_width){ 
+	if(screen_browser_ratio>0.80){
+		window.parent.document.body.style.zoom = screen_browser_ratio; 
+	}
+	}else{
+		window.parent.document.body.style.zoom = 1;
+	}
+		
+	$(window).resize(function(){
+	var actual_screen_x = screen.width;
+	var body_width = $(window).innerWidth();
+	var browser_width = $(window).outerWidth();
+	var screen_browser_ratio =  (body_width+56)/actual_screen_x;
+
+	
+	
+	if(actual_screen_x<body_width){ 
+	if(screen_browser_ratio>0.80){
+	window.parent.document.body.style.zoom = screen_browser_ratio; 
+	}}else{
+		window.parent.document.body.style.zoom = 1;
+	}
+	
+	})
+	
+	
+} // endelse for browsers 
+})
+
+
+</script>
+		
+
+<script> 
+// Grid System
+
+	// Column Grid
+	$(function(){
+		$('#grid-btn').click(
+		function(){
+			$('grid').toggle();}
+		)
+	});
+
+</script>
+
+
+<button id='grid-btn'> Grid </button>
+
+<grid>
+	<typography>
+		
+	</typography>
+</grid>
+
+
+<body>
+	
+	
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+
+<!-- Your customer chat code -->
+<div class="fb-customerchat"
+  attribution=setup_tool
+  page_id="1889766311071607">
+</div>
+
+
+
+
+<script>
+window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '516900585460200',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v3.2'
+    });
+};
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+
+</script>
+
+
+
+<div class="main-container">
+	<div class="sticky-layout"> <!-- end inside body-->
+	<header class="row">
+		<div class="top"> 
+			
+		</div>
+		
+		<div class="middle">
+			
+			<div class="logo"> <img class="company-logo" src="image/logo.png" /> </div>
+			
+			<div class="menu menu-main finches"> 
+			<div class="menu-main-icon" id="sticky-btn"> 
+				
+				<div class="open-menu">
+					
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 width="38.714px" height="35.714px" viewBox="0 0 38.714 35.714" enable-background="new 0 0 38.714 35.714" xml:space="preserve">
+					<rect x="5.928" y="6.162" fill="#777676" width="26.336" height="4"/>
+					<rect x="5.928" y="15.509" fill="#777676" width="26.336" height="4"/>
+					<rect x="5.928" y="24.857" fill="#777676" width="26.336" height="4"/>
+					</svg>
+
+					
+				</div> 
+				
+			</div><!-- end sticky-btns-->
+			<div class="clear"></div><!-- end clear-->
+			
+			<nav>
+				<ul>
+					<li><p><a href="#section-1">Who am I?</a></p></li>
+					<li><p><a href="#section-2">What I Can Do?</a></p></li>
+					<li><p><a href="#section-3">Let's Talk Business</a></p></li>
+				</ul>
+			</nav>
+			
+			<div> <!-- end finches-->
+			<div class="clear"></div><!-- end clear-->
+		</div>
+		
+		<div class="bottom"></div>
+		
+		
+			<div> <!-- end sticky-nav-->
+	</header>
+	
+	<div class="full-layout">
+	<div class="about-me row dynamic-y" id="section-1"> 
+		<div class="red-robbin-grid">
+			<div class="section-container col-two-thirds">
+				
+				<div class="col-section small-section"> 
+					<div class="content">
+						
+						<h1 class="author">Ava Javier</h1>
+						<p class="description"> I am Web Designer. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </p>
+						
+						
+						<div class="fb-messengermessageus" 
+						  messenger_app_id='516900585460200'
+						  page_id="1889766311071607"
+						  color="blue"
+						  size="xlarge">
+						</div>
+						
+					</div><!-- end content -->
+				</div> <!-- end col-section -->
+				
+				
+				<div class="col-section large-section"> 
+					<img  class="author-img" src="image/a.png" /><!-- end author-img -->
+				</div> <!-- end col-section -->
+				
+				<div class="clear"></div><!-- end clear-->
+			</div> <!-- end col-two -->
+			
+		</div> <!-- end red-robbin-grid -->
+	</div> <!-- end about-me -->
+	
+	
+		<div class="services row" id="section-2"> 
+		
+			<div class="services-header"> 
+				
+				
+				<h1 class="title">What Can I Do?</h1>
+			
+				
+				<p class="description">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,</p>
+				
+				<div class="btn-frame"><button class="cta-btn"> Hire Me </button></div>
+				
+			</div> <!--  end services-header -->
+			
+			<div class="services-listing-frame red-robbin-grid">
+
+				
+			<div class="services-listing"> 
+				<div class="mobile-responsive-slider"> 
+
+					<div class="col-section"> 
+					<div class="service-item"> 
+							
+					<div class="icon-frame">
+						<img src="image/icon-c.png">
+					</div>
+						<h1 class="title">Web Design</h1>
+						<p class="description">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum</p>
+						
+						
+					</div> <!-- end item -->
+					</div> <!-- end item -->
+				
+					
+						
+					<div class="col-section"> 
+					<div class="service-item"> 
+					<div class="icon-frame">
+						<img src="image/icon-a.png">
+					</div>
+					
+						<h1 class="title">Social Media Marketing</h1>
+						<p class="description">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum</p>
+					
+					</div> <!-- end item -->
+					</div> <!-- end item -->
+				
+					<div class="col-section"> 
+						<div class="service-item"> 
+					<div class="icon-frame">
+						<img src="image/icon-b.png">
+					</div>
+					
+						<h1 class="title">Graphic Design</h1>
+						<p class="description">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum</p>
+						
+						
+					</div> <!-- end item -->
+					</div> <!-- end item -->
+
+				
+					</div><!-- end slider -->
+				</div> <!-- end listing-->
+				<div class="clear"></div><!-- end clear-->
+				</div> <!-- end red-robbin-grid -->
+			
+		</div> <!-- end services -->
+		
+		<div class="testimonials row dynamic-y" id="section-3"> 
+		<div class="red-robbin-grid">
+		<div class="col-two">
+			
+			<div class="testimonial-video-section col-section">
+				<video class="testimonial-video"  controls autoplay>
+					<source  src="video/vid-a.mp4" type="video/mp4" >
+				</video>
+				<div class="clear"></div><!-- end clear-->
+			</div> <!-- end col-section -->
+			
+
+			
+			<div class="video-content col-section">
+				<div class="content">
+				<h1 class="title">What my clients think of my work?</h1>
+				<p class="description">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum</p>
+				</div><!-- end content-->
+				
+				<div class="social-metrics"> 
+					<div class="pins"> 
+						<h2>240</h2>
+						<p>Happy Clients</p>
+					</div><!-- end social-metrics -->
+					
+					<div class="pins"> 
+						<h2>3.2k</h2>
+						<p>Followers</p>
+					</div><!-- end social-metrics -->
+					
+					<div class="pins"> 
+						<h2>5.4k</h2>
+						<p>Followers</p>
+					</div><!-- end social-metrics -->
+					
+					<div class="clear"></div><!-- end clear-->
+					
+				</div><!-- end social-metrics -->
+			</div> <!-- end col-section -->
+			
+		</div><!-- end col-two -->
+		<div class="clear"></div><!-- end clear-->
+		</div><!-- end red-robbin-grid -->
+		</div> <!-- end Testimonials -->
+	
+	<div class="page-rest row" id="section-4"> 
+		<img  class="rest-img" src="image/g.jpg" /><!-- end author-img -->
+	</div> <!-- end page-rest -->
+	
+	<div class="projects"> 
+		<h1 class="title">Latest Projects</h1>
+		
+		<div class="portfolio-gallery" > 
+			<div class="project-listing">
+				
+			<div class="mobile-responsive-slider-project">
+				
+			<div class="item">
+				<div class="img-frame"><img src="image/folio-b.jpg"> </div>
+				<div class="content"> 
+					<h2> Journey to Life Cafe </h2>
+					<p class="desscription"> Website Branding, Social Media Marketing</p>
+				</div> <!-- end content -->
+			</div> <!-- end item -->
+			
+			<div class="item">
+				<div class="img-frame"><img src="image/folio-c.jpg"> </div>
+				<div class="content"> 
+					<h2> Workforce </h2>
+					<p class="desscription"> Website Branding, Social Media Marketing</p>
+				</div> <!-- end content -->
+			</div> <!-- end item -->
+			
+			<div class="item">
+				<div class="img-frame"><img src="image/folio-a.jpg"> </div>
+				<div class="content"> 
+					<h2> Peak Media </h2>
+					<p class="desscription"> Website Branding, Social Media Marketing</p>
+				</div> <!-- end content -->
+			</div> <!-- end item -->
+			
+			
+			<div class="item">
+				<div class="img-frame"><img src="image/folio-b.jpg"> </div>
+				<div class="content"> 
+					<h2> Journey to Life Cafe </h2>
+					<p class="desscription"> Website Branding, Social Media Marketing</p>
+				</div> <!-- end content -->
+			</div> <!-- end item -->
+			
+			<div class="item">
+				<div class="img-frame"><img src="image/folio-c.jpg"> </div>
+				<div class="content"> 
+					<h2> Workforce </h2>
+					<p class="desscription"> Website Branding, Social Media Marketing</p>
+				</div> <!-- end content -->
+			</div> <!-- end item -->
+			
+			<div class="item">
+				<div class="img-frame"><img src="image/folio-a.jpg"> </div>
+				<div class="content"> 
+					<h2> Peak Media </h2>
+					<p class="desscription"> Website Branding, Social Media Marketing</p>
+				</div> <!-- end content -->
+			</div> <!-- end item -->
+			
+			
+			
+			</div><!-- end mobile-responsive-slider-project-->
+			<div class="clear"></div><!-- end clear-->
+			</div><!-- end project-listing-->
+			
+		</div>
+			
+		
+	</div> <!-- end projects -->
+	
+	</div> <!-- end boxed-layout -->
+	
+	
+	<footer> 
+		<div class="about-me-widget"> 
+			<h2 class="author">Ava Javier</h2>
+			<p class="description">Web Designer</p>
+		</div>
+		
+		<div class="social-media-widget"> 
+		<ul class="social-media-pins"> 
+			<li> <img src="image/social_01.png"> </li>
+			<li> <img src="image/social_03.png"> </li>
+			<li> <img src="image/social_05.png"> </li>
+			<li> <img src="image/social_07.png"> </li>
+			<div class="clear"></div>
+		</ul>
+		</div>
+		
+		<div class="clear"></div>
+	</footer>
+
+	</div> <!-- end sticky-layout-->
+</div><!-- end main-container -->
+
+		<div class="sticky-nav"> 
+			<div class="sticky-overflow"> </div>
+			<div class="nav-mobile">
+			<div class="menu-main-icon" id="sticky-btn"> 
+				
+				<div class="close-menu sticky-overflow" id="close-menu"> 
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 width="38.714px" height="35.714px" viewBox="0 0 38.714 35.714" enable-background="new 0 0 38.714 35.714" xml:space="preserve">
+
+					<rect x="5.928" y="15.509" fill="#777676" width="26.336" height="4"/>
+
+					</svg>
+				</div>
+			</div><!-- end sticky-btns-->
+			<nav>
+				<ul>
+					<li><p><a href="#section-1">Who am I?</a></p></li>
+					<li><p><a href="#section-2">What I Can Do?</a></p></li>
+					<li><p><a href="#section-3">Let's Talk Business</a></p></li>
+				</ul>
+			</nav>
+		</div>
+
+</body>
+</html>
+
+
+	
+
+
+	<style>
+	
+	.main-container{
+		max-width:3000px;
+		margin: 0 auto;
+	}
+	
+	/* STICKY BACKGROUND SCROLL CSS */
+ 
+ 	#sticky-btn{
+		position:fixed;
+		right:0;
+		top:1px;
+		z-index: 5;
+	}
+	
+	
+	 .sticky-body{
+		 position:fixed;
+	 }
+ 
+ 	.sticky-body{
+		right:0;
+		left:0;
+	}
+
+	
+	.sticky-nav{
+		display:none;
+		width:100%;
+		margin: -96px auto 0 auto;
+		background-color: #ffffff;
+		opacity: 0.90;
+		z-index: 1;
+		
+		padding-bottom: 220px;
+	}
+	
+	.sticky-overlay{
+		position: relative;
+		display: block;
+		left:0px;
+	}
+	
+	.sticky-overflow{
+		position:relative;
+		z-index:3;
+		float:left;
+		background-color: #b2b0b0;
+		opacity: 0.85;
+		top:48px;
+		width:0%;
+
+		min-width:2%;
+	}
+	
+	#close-menu{
+		margin-top: -48px;
+	}
+	
+	/* Typography */
+	
+	h1, h2, li p, p, li a{
+		font-family: "Poppins", Arial;
+	}
+	
+	li p, p{
+		font-size: 16px;
+		line-height: 24px;
+		letter-spacing: 0.02em;
+	}
+	
+	p{
+		color:#777676;
+	}
+	
+	
+	
+	/* Theme Style */
+	
+	/* 1. Header */
+
+	header{
+		max-width: 3000px;
+		width:100%;
+		height:96px;
+		margin:0 auto;
+		position: absolute;
+		left:0;
+		right:0;
+		z-index: 1;
+		
+		    -webkit-transition: background-color 1s; /* Safari */
+			transition: background-color 1s;
+	}
+	
+	header:hover{
+		z-index: 1;
+		background-color: #ffffff;
+	}
+	
+	.logo{
+		float:left;
+	}
+	
+	.company-logo{
+		height:48px;
+		margin-left:24px;
+		padding:16px 16px;
+		background-color: #ffffff;
+	}
+	
+	.menu-main-icon{
+		position: fixed;
+		float: right;
+		display: none;
+	}
+	
+	.menu-main{
+		margin-right: 24px;
+	}
+		
+	.menu-main ul{
+		list-style: none;
+		padding:0;
+		margin:36px 0;
+	}
+	
+	.menu nav ul li{
+		margin:0;
+		padding:0;
+		float:left;
+	}
+	
+	
+	
+	.menu nav ul li a{
+		text-decoration: none;
+		color: #ffffff;
+		
+		
+	}
+	
+	
+	
+	.menu nav ul li p{
+		margin: 0;
+		padding:4px 16px;
+		
+		    -webkit-transition: color 2s; /* Safari */
+			transition: color 2s;
+	}
+	
+	header:hover nav ul li a{
+		color:#5f5d5d;
+		
+	}
+	
+	.menu nav ul li:hover a{
+		text-decoration: underline;
+		color:#f28459;
+	}
+	
+	.open-menu, .close-menu{
+		padding: 4px;
+		background-color: #ffffff;
+		opacity: .70;
+	}
+
+	.finches{
+		position: absolute;
+		right:1%;
+	}
+	
+	.cta-btn{
+		width:190px;
+		height:42px;
+		padding-top: 12px;
+		padding-bottom: 12px;
+		border-radius: 20px;
+		border: none;
+		font-size: 18px;
+		color:#ffffff;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		background-color: #eb8c52;
+	}
+	
+	/* Dynamic Menu*/
+	
+	@media only screen and (max-width : 960px) {
+		
+		header{
+			background-color: #ffffff;
+		}
+		
+		.finches{
+			width:100%;
+			float: initial;
+		}
+		
+		.menu-main-icon{
+			display:block;
+		}
+		
+		.menu{
+			margin-left: 20%;
+			width:80%;
+		}
+		
+		.menu nav {
+			display:none;
+		}
+		
+		.menu nav ul li{
+			padding:0;
+			float:initial;
+		}
+		
+		.close-menu{
+			display:none;
+		}
+		
+		
+	}
+	
+	
+	
+	/* 2. About Me Section */
+	
+	.about-me{
+		background-color: #e8ced1;
+		overflow: hidden;
+		max-height: 1150px;
+	}
+	
+	.about-me .large-section{
+		position: relative;
+		max-height: 1150px;
+		display: flex;
+		align-items: flex-end;
+	}
+	
+	.author-img{
+		width:96%;
+		position: absolute;
+		left:0;
+		right:0;
+		bottom: 0;
+		margin-left: 0;
+	}
+	
+	.about-me .content {
+		margin-top: 45%;
+	}
+	
+	.about-me .content .intro{
+		font-family: "Poppins", Arial;
+		font-size: 48px;
+		font-weight: 700;
+		line-height: 56px;
+		letter-spacing: 0em;
+		color:#777676;
+	
+		margin:0 0 0 24px;
+	} 
+	
+	.about-me .content .author{
+		font-family: "Poppins", Arial;
+		font-size: 96px;
+		font-weight: 700;
+		line-height: 104px;
+		letter-spacing: 0em;
+		color:#f28459;
+		margin: 0;
+	} 
+	
+	.about-me .content .description{
+		font-family: "Poppins", Arial;
+		font-size: 16px;
+		font-weight: 400;
+		letter-spacing: 0.02em;
+		color:#747373;
+		
+		width:70%;
+		margin:6px 0 0 0;
+	} 
+	
+	.about-me .btn-frame{
+		margin-top: 48px;
+	}
+	
+	.fb-messengermessageus{
+		margin-top: 16px;
+	}
+	
+	@media only screen and (max-width : 3000px) {
+		.author-img{
+			bottom:0;
+		}
+	
+	}
+	
+	@media only screen and (max-width : 920px) and (min-width : 720px) and (orientation : landscape){
+		
+		
+		.about-me .content{
+			margin-top: 0;
+			margin-left: 48px;
+			position: relative;
+			z-index: 2;
+			top:30%;
+			float:initial;
+		}
+		
+		
+		.about-me{
+			min-height:520px;
+		}
+		
+		.about-me .col-two-thirds .large-section{
+			min-height:520px;
+		}
+		
+		
+		.about-me .content .intro{
+			margin-left: 8px;
+			font-size: 24px;
+			line-height: 32px;
+			letter-spacing: 0.02em;
+			margin: 0;
+		}
+		
+		.about-me .content .description{
+			margin-left: 8px;
+			margin-top: 16px;
+		}
+		
+		.about-me .content .author{
+			 font-size: 54px;
+			 line-height: 54px;
+			 letter-spacing: 0.01em;
+			 margin: 0;
+		 }
+		 
+		 header{
+			 height:54px;
+		 }
+		 
+		 .company-logo{
+			 height: 24px;
+			 padding:16px 8px 8px 8px;
+		 }
+		
+	}
+	
+	@media only screen and (max-width : 720px) {
+		
+		header{
+			 height:54px;
+		 }
+		 
+		 .company-logo{
+			 height: 24px;
+			 padding:16px 8px 8px 8px;
+		 }
+		 
+		 
+		.about-me .content{
+			margin-top: 0;
+			margin-left: 24px;
+			margin-right: 24px;
+			position: relative;
+			z-index: 2;
+			top:35%;
+			float:initial;
+		}
+		
+		.about-me .content .intro{
+			margin-left: 8px;
+			font-size: 24px;
+			line-height: 24px;
+			letter-spacing: 0.01em;
+			margin-bottom: 0;
+		}
+		
+		.about-me .content .description{
+			margin-left: 8px;
+			margin-top: 16px;
+			width: 80%;
+		}
+		
+		.about-me .content .author{
+			 font-size: 54px;
+			 line-height: 60px;
+			 letter-spacing: 0.01em;
+		}
+		
+		.about-me .btn-frame{
+		margin-top: 32px;
+		}
+	}
+	
+	
+	
+	/* 3. Services Section */
+	
+	.services{
+		padding-top: 96px;
+		width:100%;
+	}
+	
+	.services .services-header{
+
+		margin-bottom: 96px;
+	}
+	
+	.services .services-header .title{
+		font-size: 48px;
+		line-height: 56px;
+		font-weight: 400;
+		
+		color:#eb8c52;
+		text-align: center;
+	}
+	
+	.services .services-header .description{
+		text-align: center;
+		margin-top: 48px;
+		margin-left: auto;
+		margin-right: auto;
+		
+		width:80%;
+		max-width: 532px;
+	}
+	
+	
+	.services .services-header .btn-frame{
+		width: 190px;
+		margin-top: 48px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	.services-listing-frame{
+		background-color:#fef9fa;
+		overflow-x: hidden;
+	}
+	
+	.services-listing{
+		width:85%;
+		padding-top: 32px;
+		padding-bottom: 48px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	.service-item{
+		margin: 24px 48px;
+	}
+	
+	.service-item img{
+		width: 96px;
+		margin: 0 auto 24px auto;
+	}
+	
+	.service-item .title{
+		font-size: 32px;
+		line-height: 42px;
+		font-weight: 300;
+		
+		margin-bottom: 32px;
+		color:#777676;
+		text-align: center;
+	}
+	
+	
+	
+	
+	@media only screen and (max-width : 1300px) {
+		.services-listing{
+			width:100%;
+			padding-top: 32px;
+			padding-bottom: 48px;
+		}
+		
+		.service-item{
+			margin: 24px;
+		}
+	}
+	
+	@media only screen and (max-width : 900px) {
+		
+		
+		
+		.service-item{
+			padding-top: 48px;
+			padding-bottom: 72px;
+			margin: 4px;
+		}
+		
+		.service-item  .img-frame{
+			width: 55%;
+		}
+		
+		.service-item .title{
+			width: 90%;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 48px;
+		}
+		
+		.service-item .description{
+			width: 85%;
+			text-align: center;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		.service-item{
+			margin: 24px;
+		}
+	}
+	
+	
+	@media only screen and (max-width : 720px) {
+		
+		.services .services-header .title{
+			font-size: 32px;
+			line-height: 42px;
+		}
+		
+		.services-listing{
+			width:100%;
+			padding-top: 32px;
+			padding-bottom: 48px;
+		}
+		
+		.service-item{
+			margin: 24px 4px;
+		}
+		
+	}
+	
+	
+	
+	/* 4. Testimonial Section */
+	.testimonials {
+		padding-bottom: 48px;
+		max-height: 800px;
+	}
+	
+	.testimonials .content{
+		width:68%;
+		margin-top: 15%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+				
+	.testimonials .content .title{
+		color:#eb8c52;
+		font-size: 48px;
+		line-height: 60px;
+		font-weight: 400;
+			
+		margin-bottom: 40px;
+	}
+				
+	.testimonials .content .description{
+		width:75%;
+	}
+		
+	.social-metrics{
+		width:68%;
+		margin-top: 48px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+		
+	.social-metrics .pins{
+		padding: 24px 48px;
+		margin-left: -48px;
+		float:left;
+	}
+		
+	.social-metrics .pins h2{
+		font-size: 54px;
+		line-height: 56px;
+		font-weight: 400;
+		color:#575656;
+			
+		margin: 8px 0;
+		text-align: center;
+	}
+		
+	.social-metrics .pins p{
+		text-align: center;
+	}
+		
+	.testimonial-video{
+		margin-top: 17%;
+		width:80%; 
+		height:auto;
+		float: right;
+	}
+	
+	
+	
+	@media only screen and (max-width : 1000px) {
+		.testimonials {  max-height:1600px; }
+		
+		.testimonials .content{ width:80%;}
+		
+		.testimonials .content .description{
+			width:80%; 
+		}
+		
+		.social-metrics{
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 32px;
+			width:95%; 
+		}
+		
+		.social-metrics .pins{
+			float:left;
+			margin: 0px 8px 32px 8px;
+			padding: 24px;
+
+		}
+		.social-metrics .pins h2{
+			font-size: 48px;
+			line-height: 54px;
+			
+		}
+		
+		.social-metrics .pins p{
+			width:120px;
+			text-align: center;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		.testimonial-video{
+			float: initial;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+	
+	
+	@media only screen and (max-width : 720px) {
+		
+	.testimonials, .testimonials .red-robbin-grid{
+		overflow:hidden;
+		height: inherit;
+	}
+		
+		.testimonials .content{ width:80%; overflow:auto;}
+		
+		.testimonials .content .description{
+			width:80%; 
+		}
+		
+		.testimonial-video{
+			margin-top: 0px;
+			width: 100%;
+			float: initial;
+		}
+		
+		.social-metrics .pins {
+			width:25%;
+			padding: 8px;
+			float:left;
+		}
+		
+		.social-metrics .pins h2{
+			font-size: 32px;
+			line-height: 48px;
+			text-align: center;
+		}
+		
+		.social-metrics .pins p{
+			width:auto;
+		}
+		
+	}
+	
+	/* 5. Page Rest Section */
+	.page-rest{
+		width:100%;
+		height:auto;
+		overflow: auto;
+	}
+	
+	.page-rest img{
+		overflow: auto;
+		width:100%;
+	}
+	
+	/* 6. Recent Projects Section */
+	
+	.projects{
+		padding-bottom: 10%;
+	}
+	
+	.projects .img-frame{
+		max-height:284px;
+		overflow: hidden;
+		margin-bottom: 0;
+	}
+	
+	.projects .title{
+		margin-top: 5%;
+		width:80%;
+		margin-left: auto;
+		margin-right: auto;
+		
+		font-size: 24px;
+		line-height: 32px;
+		font-weight: 400;
+		
+		color:#eb8c52;
+	}
+	
+	.portfolio-gallery{
+		width:80%;
+		margin:72px auto;
+		overflow: hidden;
+	}
+	
+	.portfolio-gallery .item .content{
+		width:85%;
+		margin:16px auto;
+	}
+	
+	.portfolio-gallery .item{
+		float:left;
+		overflow: hidden;
+		margin: 0 auto 48px auto;
+	}
+	
+	.portfolio-gallery .item img{
+		width: 85%;
+		margin: 0 auto;
+	}
+	
+	.projects .desscription{
+		line-height: 24px;
+	}
+	
+	.projects h2{
+		color:#4d4d4d;
+		margin:0; 
+		font-size: 24px;
+		line-height:38px;
+		letter-spacing: 0.04em;
+	}
+	
+	
+	@media only screen and (max-width : 720px) {
+		.portfolio-gallery{
+			margin-top: 32px;
+			width:90%;
+		}
+	}
+	
+	
+	.nav-mobile{
+		position: relative;
+		top:0;
+	}
+	
+	.nav-mobile ul{
+		list-style: none;
+		padding-top:180px;
+	}
+	
+	.nav-mobile ul li{
+		margin: 12px 0;
+	}
+	
+	.nav-mobile ul li a{
+		text-decoration: none;
+		color:#747373;
+	}
+	
+	/* 7.Footer */
+	footer{
+		background-color:#4d4d4d;
+	}
+	
+	footer{
+		padding:6px 0 16px 0;
+	}
+	
+	.about-me-widget{
+		width: 45%;
+		float: left;
+		margin-left: 100px;
+		margin-top: 24px;
+		margin-bottom: 24px;
+	}
+	
+	.about-me-widget .author{
+		margin: 8px 0;
+		
+		font-size: 48px;
+		line-height: 52px;
+		color: #eb8c52;
+		
+	}
+	
+	.about-me-widget .description{
+		color: #f2c8b1;
+		line-height: 24px;
+		
+	}
+	
+	@media only screen and (max-width : 720px) {
+		
+		.about-me-widget{
+			width:100%;
+			float:initial;
+			margin-left: 0;
+		}
+		
+		.about-me-widget .author{
+			font-size: 36px;
+			line-height: 44px;
+			letter-spacing: 0.04em;
+			margin-bottom: 0;
+			text-align: center;
+		}
+		
+		.about-me-widget .description{
+			text-align: center;
+		}
+	}
+	
+	
+	.social-media-widget{
+		width:30%;
+		float:right;
+		margin-right: 100px;
+		margin-top: 60px;
+	}
+	
+	.social-media-pins{
+		width:218px;
+		padding-left: 0;
+		margin: 4px 0;
+		list-style: none;
+		float: right;
+	}
+	
+	.social-media-pins li{
+		float:left;
+		padding: 8px;
+		border: 1px solid #ffffff;
+		margin: 8px 8px;
+		border-radius: 50%;
+		
+		    -webkit-transition: background-color 1s; /* Safari */
+			transition: background-color 1s;
+	}
+	
+	
+	.social-media-pins li:hover{
+		background-color: #eb8c52;
+	}
+	
+	.social-media-pins img{
+		width:20px;
+	}
+	
+	
+	@media only screen and (max-width : 720px) {
+		
+	.social-media-widget{
+		width:100%;
+		float:initial;
+		margin-right: 0;
+		margin-top: 16px;
+	}
+	
+		.social-media-pins{
+			width:218px;
+			padding-left: 0;
+			margin: 4px auto;
+			float:initial;
+		}
+	}
+	
+	
+	
+	</style>
+	
+<style>
+
+
+
+
+.row:nth-child(even){
+	/*background-color:#FFAAAA;*/
+}
+
+
+
+/* 
+	Red Robbin Responsive Grid: This provides a responsive web template along side sandpiper vertical responsive grid.
+	
+	
+	Naming Covention:
+	
+	a. red-robbin = placed in main container.
+	b. column division
+		b.1. col-two = 2 columns, equally divided
+		b.2. col-two-thirds = two columns, one column 2/3 and the ther 1/3. Identified by large-section and small-section.
+		b.3. col-three = 3 columns
+		b.4. col-four = 4 columns
+
+*/
+
+
+.red-robbin-grid{
+	width:94%;
+	padding:0 3%;
+	height:inherit;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+
+/* Column Posts */
+
+/* Two Column */
+
+.red-robbin-grid .col-two{
+	width:100%;
+}
+
+.red-robbin-grid .col-two .col-section{
+	width:50%;
+	float:left;
+}
+
+
+/* Two Column  - Two Thirds */ 
+
+.red-robbin-grid .col-two-thirds{
+	height:inherit;
+}
+
+.red-robbin-grid .col-two-thirds .large-section{
+	width:66.33%;
+	height:inherit;
+	float:left;
+}
+
+.red-robbin-grid .col-two-thirds .small-section{
+	width:33.33%;
+	height:inherit;
+	float:right;
+}
+
+
+/* Three Columns */
+
+.red-robbin-gird .col-three{
+	width:100%;
+}
+
+.red-robbin-grid .col-three .col-section{
+	width:33.33%;
+	float:left;
+}
+
+
+/* Four Columns */
+
+.red-robbin-grid .col-four{
+	width:100%;
+}
+
+.red-robbin-grid .col-four .col-section{
+	width:25%;
+	float:left;
+}
+
+
+
+@media only screen and (max-width: 960px) {
+	/* Column Posts */
+	
+	.red-robbin-grid{
+		width:100%;
+		padding:0;
+	}
+	
+	/* Two Column */
+	.red-robbin-grid .col-two .col-section{
+		width:100%;
+			margin-left: auto;
+			margin-right: auto;
+		float:initial;
+	}
+	
+	/* Two Column  - Two Thirds */ 
+	.red-robbin-grid .col-two-thirds .col-section{
+		width:50%;
+	}
+	
+	/* Four Columns */
+	.red-robbin-grid .col-four .col-section{
+		width:50%;
+	}
+}
+
+@media only screen and (max-width : 650px) {
+	
+	/* Column Posts */
+
+	/* Two Column */
+	.red-robbin-grid .col-two .col-section{
+		width:100%;
+		float:initial;
+	}
+
+	/* Two Column  - Two Thirds */ 
+	.red-robbin-grid .col-two-thirds .col-section{
+		width:100%;
+		float:initial;
+	}
+	
+	.red-robbin-grid .col-two-thirds .large-section{
+		width:100%;
+		height: 50%;
+		float:initial;
+		bottom: 0;
+	}
+
+	.red-robbin-grid .col-two-thirds .small-section{
+		width:100%;
+		height: 50%;
+		float:initial;
+	}
+
+	
+	/* Three Columns */
+	
+	.red-robbin-grid .col-three .col-section{
+		width:100%;
+		float:initial;
+	}
+	
+	/* Four Columns */
+	
+	.red-robbin-grid .col-four .col-section{
+		width:100%;
+		float:initial;
+	}
+
+}
+
+@media only screen and (max-width : 550px) {
+	
+	
+	/* Three Columns */
+	
+	.red-robbin-grid .col-three .col-section{
+		width:80%;
+		float:initial;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	.red-robbin-grid .mobile-responsive-slider .col-section{
+		float:left;
+	}
+	
+	/* Four Columns */
+	
+	.red-robbin-grid .col-four .col-section{
+		width:80%;
+		float:initial;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+}
+
+
+/** Boxed Layout **/
+
+
+.boxed-header{
+	width:98%;
+}
+
+.boxed-header .finches{
+	right: 0;
+}
+
+.boxed-layout{
+	width:96%;
+	margin:2% auto;
+	box-shadow: 0px 3px 5px #333;
+	background-color: #ffffff;
+}
+
+@media only screen and (max-width: 960px) {
+	.boxed-header{
+		width:100%;
+	}
+	
+	.boxed-header .finches{
+		right: 0;
+	}
+	
+	.boxed-layout{
+		width:100%;
+		margin:0 auto;
+		box-shadow: initial;
+		background-color: #ffffff;
+	}
+}
+
+
+	
+</style>
